@@ -1,0 +1,28 @@
+<div class="container">
+  <h1 class="text-center mt-4">
+    Profil de <%= @user.first_name %>
+  </h1>
+  <h2 class="mb-2 mt-4">Mes informations personnelles</h2>
+  <p> Nom : <%= @user.last_name %></p>
+  <p> Prénom : <%= @user.first_name %></p>
+  <p> Age : <%= @user.age %> </p>
+  <p> Email : <%= @user.email %> </p>
+  <p> Description : <%= @user.description %></p>
+  <p> Ville : <%= @user.city.name %>, <%= @user.city.zip_code %></p>
+
+  <h2 class="mb-2 mt-4">Tous mes gossips</h2>
+  <div class="row justify-content-center">
+    <% @user.gossips.each do |gossip| %>
+      <div class="card m-4 p-0 mt-4 col-sm-12 col-md-4 col-lg-3">
+        <div class="card-body">
+          <h5 class="card-title"><%=gossip.title%></h5>
+          <p class="card-text"><%= truncate(gossip.content, length: 50) %></p>
+          <%= link_to "Lire le gossip", gossip_path(gossip.id) %>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"><%= link_to "Ecrit par #{gossip.user.first_name}, le #{gossip.created_at.strftime("%d/%m/%Y")}" , user_path(gossip.user.id) %></small>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div
