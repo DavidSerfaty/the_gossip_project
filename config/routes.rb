@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get '/gossip/:id', to: 'gossips#show', as: 'gossip'
   get '/user/:id', to: 'users#show', as: 'user'
 
-  get '/welcome/:first_name', to: 'landing_pages#welcome'
+  get '/welcome/:first_name', to: 'landing_pages#welcome', as: 'welcome'
 end
