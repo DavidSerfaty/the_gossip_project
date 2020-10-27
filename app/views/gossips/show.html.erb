@@ -1,9 +1,18 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:notice] %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+
 <div class="text-center container">
+
   <h1 class="m-4"> <%= @gossip.title %> </h1>
   <p> <%= @gossip.content %> </p>
   <p> Créé le <%= @gossip.created_at.strftime("%d/%m/%Y") %> </p>
 
   <%= link_to "Retourner aux Gossips", root_path, :class => "btn btn-primary" %>
-
 
 </div

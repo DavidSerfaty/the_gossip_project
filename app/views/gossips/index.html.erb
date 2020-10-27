@@ -2,6 +2,10 @@
   <h1 class="text-center mt-4"> Bienvenu sur The Gossip Project </h1>
   <h2 class="text-center">Découvrez tous les derniers Gossips</h2>
 
+<div class="text-center mt-5  mt-3">
+  <%= link_to "Créer un gossip", new_gossip_path, class: "btn btn-success" %>
+</div>
+
   <div class="row justify-content-center">
     <% @gossips.each do |gossip| %>
     <div class="card p-0 m-4 col-sm-12 col-md-4 col-lg-3">
