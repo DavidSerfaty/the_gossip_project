@@ -1,5 +1,7 @@
+
 class CommentsController < ApplicationController
   before_action :authenticate_user, only: [:create, :edit, :update, :destroy]
+  before_action :is_my_comment, only: [:edit, :update, :destroy]
 
 
   def create
@@ -31,6 +33,16 @@ class CommentsController < ApplicationController
     redirect_to gossip_path(@comment.gossip.id)
   end
 
+
+  private
+
+  def is_my_comment
+    @comment = Comment.find(params[:id])
+    unless current_user == @comment.user
+      flash[:danger] = "Ce n'est pas votre commentaire"
+      redirect_to gossip_path(@comment.gossip.id)
+    end
+  end
   # GET /comments/1/edit
   # def edit
   #   params.require(:comment).permit(:title, :content)

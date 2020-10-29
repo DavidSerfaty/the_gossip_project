@@ -1,5 +1,7 @@
 class GossipsController < ApplicationController
   before_action :authenticate_user, only: [:new, :show, :create, :edit, :update, :destroy]
+  before_action :is_my_gossip, only: [:edit, :update, :destroy]
+
 
   def index
     @gossips = Gossip.all
@@ -30,7 +32,7 @@ class GossipsController < ApplicationController
     @gossip = Gossip.find(params[:id])
     gossip_params = params.require(:gossip).permit(:title, :content)
     if @gossip.update(gossip_params)
-      redirect_to @gossip, notice:"Ton potin a été mis à jour !"
+      redirect_to gossip_path(@gossip.id), notice:"Ton potin a été mis à jour !"
     else
       render :edit
     end
@@ -40,5 +42,15 @@ class GossipsController < ApplicationController
     @gossip = Gossip.find(params[:id])
     @gossip.destroy
     redirect_to root_path
+  end
+
+  private
+
+  def is_my_gossip
+    @gossip = Gossip.find(params[:id])
+    unless current_user == @gossip.user
+      flash[:danger] = "Ce n'est pas votre potin"
+      redirect_to gossip_path(@gossip.id)
+    end
   end
 end

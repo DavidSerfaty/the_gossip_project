@@ -22,9 +22,14 @@
           à <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city) %>
         </p>
         <div class="text-right">
-          <%= link_to "Retourner aux Gossips", root_path, :class => "btn btn-link" %>
-          <%= link_to "Modifier", edit_gossip_path, :class => "btn btn-outline-primary" %>
-          <%= link_to  "Supprimer", gossip_path(@gossip.id), method: :delete, data:{confirm: "Tu veux vraiment supprimer ce potin ?"}, class:"btn btn-outline-danger" %>
+
+          <% if is_mine(@gossip, current_user) %>
+            <%= link_to "Retourner aux Gossips", root_path, :class => "btn btn-link" %>
+            <%= link_to "Modifier", edit_gossip_path, :class => "btn btn-outline-primary" %>
+            <%= link_to  "Supprimer", gossip_path(@gossip.id), method: :delete, data:{confirm: "Tu veux vraiment supprimer ce potin ?"}, class:"btn btn-outline-danger" %>
+          <%else%>
+            <%= link_to "Retourner aux Gossips", root_path, :class => "btn btn-link" %>
+          <%end%>
         </div>
       </div>
     </div>
@@ -51,10 +56,12 @@
               <small>
                 Par <%= link_to "#{comment.user.first_name}", user_path(comment.user.id) %>
               </small><br>
-              <div class="text-right">
-                <%= link_to "Modifier", edit_gossip_comment_path(@gossip.id, comment.id), class:"btn btn-outline-primary btn-sm" %>
-                <%= link_to  "Supprimer", gossip_comment_path(@gossip.id, comment.id), method: :delete, data:{confirm: "Tu veux vraiment supprimer ton commentaire ?"}, class:"btn btn-outline-danger btn-sm" %><br>
-              </div>
+              <% if is_mine(comment, current_user) %>
+                <div class="text-right">
+                  <%= link_to "Modifier", edit_gossip_comment_path(@gossip.id, comment.id), class:"btn btn-outline-primary btn-sm" %>
+                  <%= link_to  "Supprimer", gossip_comment_path(@gossip.id, comment.id), method: :delete, data:{confirm: "Tu veux vraiment supprimer ton commentaire ?"}, class:"btn btn-outline-danger btn-sm" %><br>
+                </div>
+              <% end %>
             </div>
           </div>
         <% end %>
