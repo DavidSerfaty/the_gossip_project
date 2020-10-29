@@ -1,13 +1,12 @@
-<h1>S'inscrire</h1>
-<div class="col-6">
-  <%= form_tag url_for(action: 'create'), method: "post", class: "form-signin" do %>
-    <h1 class="h3 mb-3 font-weight-normal">Remplissez le formulaire pour vous inscrire</h1>
-    <%= label_tag 'Prénom' %>
-    <%= text_field_tag 'first_name', "", class: "form-control" %><br>
-    <%= label_tag 'Email' %>
-    <%= text_field_tag 'email', "", class: "form-control" %><br>
-    <%= label_tag 'Mot de passe' %>
-    <%= password_field_tag 'password',"", class: "form-control"%><br>
+<div class="text-center mt-5">
+  <div class="m-auto" style="width: 300px">
+    <%= form_tag url_for(action: 'create'), method: "post", class: "form-signin" do %>
+    <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+    <%= text_field_tag 'first_name', "", class: "form-control", placeholder: 'Prénom'  %>
+    <%= text_field_tag 'email', "", class: "form-control", placeholder: 'Email' %>
+    <%= password_field_tag 'password',"", class: "form-control", placeholder: 'Mot de passe' %><br>
     <%= submit_tag "S'inscrire",  class: "btn btn-lg btn-primary btn-block" %>
-  <% end %>
+    <% end %>
+    <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
+  </div>
 </div>
