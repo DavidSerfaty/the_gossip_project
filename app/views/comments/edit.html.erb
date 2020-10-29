@@ -1,0 +1,24 @@
+<% if @comment.errors.any? %>
+<div class="alert alert-danger text-center" role="alert">
+  <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
+  <ul>
+    <% @comment.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="container">
+  <h1 class="text-center my-5"> Modifier le commentaire</h1>
+  <div class="col-12">
+    <div class="shadow-none bg-light rounded p-4">
+      <%= form_tag gossip_comment_path(@comment.gossip.id, @comment.id), method: "put" do %>
+        <%= label_tag 'Contenu du commentaire' %>
+        <%= text_area_tag 'content', "#{@comment.content}", class: "form-control" %><br>
+        <%= submit_tag "Sauvegarder",  class: "btn btn-primary" %>
+        <%= link_to  "Supprimer", gossip_comment_path(@comment.gossip.id), method: :delete, data:{confirm: "Tu veux vraiment supprimer ton commentaire ?"}, class:"btn btn-danger" %><br>
+      <% end %>
+    </div>
+  </div>
+</div>

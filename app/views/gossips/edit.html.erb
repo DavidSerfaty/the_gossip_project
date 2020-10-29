@@ -1,0 +1,26 @@
+<% if @gossip.errors.any? %>
+<div class="alert alert-danger text-center" role="alert">
+  <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
+  <ul>
+    <% @gossip.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+
+<div class="container">
+  <h1 class="text-center my-5"> Modifier le potin</h1>
+  <div class="col-12">
+    <div class="shadow-none bg-light rounded p-4">
+      <%= form_for @gossip, url: {action: "update"} do |f| %>
+        <%= label_tag 'Title' %>
+        <%= f.text_field :title, class: "form-control mb-4" %>
+        <%= label_tag 'Content' %>
+        <%= f.text_area :content, class: "form-control mb-4" %>
+        <%= f.submit "Sauvegarder", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+  </div>
+</div>

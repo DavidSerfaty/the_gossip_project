@@ -1,0 +1,53 @@
+<div class="container text-center">
+
+  <h1 class="text-center m-5">
+    Ville
+  </h1>
+  <div class="row">
+    <div class="col-md-12 col-lg-4 px-3">
+      <div class="bg-light rounded border text-left px-4">
+        <h2 class="my-4 text-center">Profil</h2>
+        <p>Nom de la ville : <%= @city.name %></p>
+        <p>Code postal : <%= @city.zip_code %></p>
+      </div>
+    </div>
+    <div class="col-md-12 col-lg-8 px-3">
+      <div class="px-3">
+
+
+        <h2 class="my-4">Les Potins écris à <%= @city.name %></h2>
+        <div class="row justify-content-center text-left">
+          <% @city.users.each do |user| %>
+          <% user.gossips.each do |gossip| %>
+
+          <div class="card mx-3 mb-4 shadow-sm col-12">
+            <div class="card-body">
+              <div class="text-right">
+                <small class="text-muted"><%= gossip.updated_at.strftime("%d/%m/%Y")%></small>
+              </div>
+              <h5 class="card-title"><%=gossip.title%></h5>
+              <p class="card-text"><%= truncate(gossip.content, length: 50) %></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="">
+                  <%= link_to "Voir", gossip_path(gossip.id), class: "btn btn-outline-secondary btn-sm" %>
+                  <small class="text-muted">
+                    <%if gossip.comments.count > 1%>
+                    <%=gossip.comments.count%> commentaires
+                    <%elsif gossip.comments.count == 0%>
+                    Pas de commentaire
+                    <%else%>
+                    <%=gossip.comments.count%> commentaire
+                    <%end %>
+                  </small>
+                </div>
+                <small class="text-muted">Ecrit par <%= link_to gossip.user.first_name, user_path(gossip.user.id) %></small>
+              </div>
+            </div>
+          </div>
+          <%end%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

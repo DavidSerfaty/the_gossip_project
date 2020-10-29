@@ -1,28 +1,57 @@
-<div class="container">
-  <h1 class="text-center mt-4">
-    Profil de <%= @user.first_name %>
-  </h1>
-  <h2 class="mb-2 mt-4">Mes informations personnelles</h2>
-  <p> Nom : <%= @user.last_name %></p>
-  <p> Prénom : <%= @user.first_name %></p>
-  <p> Age : <%= @user.age %> </p>
-  <p> Email : <%= @user.email %> </p>
-  <p> Description : <%= @user.description %></p>
-  <p> Ville : <%= @user.city.name %>, <%= @user.city.zip_code %></p>
+<div class="container text-center">
 
-  <h2 class="mb-2 mt-4">Tous mes gossips</h2>
-  <div class="row justify-content-center">
-    <% @user.gossips.each do |gossip| %>
-    <div class="card m-4 p-0 mt-4 col-sm-12 col-md-4 col-lg-3">
-      <div class="card-body">
-        <h5 class="card-title"><%=gossip.title%></h5>
-        <p class="card-text"><%= truncate(gossip.content, length: 50) %></p>
-        <%= link_to "Lire le gossip", gossip_path(gossip.id) %>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted"><%= link_to "Ecrit par #{gossip.user.first_name}, le #{gossip.created_at.strftime("%d/%m/%Y")}" , user_path(gossip.user.id) %></small>
+  <h1 class="text-center m-5">
+    Utilisateur
+  </h1>
+  <div class="row">
+    <div class="col-md-12 col-lg-4 px-3">
+      <div class="bg-light rounded border text-left px-4">
+        <h2 class="my-4 text-center">Profil</h2>
+        <p> Nom : <%= @user.last_name %></p>
+        <p> Prénom : <%= @user.first_name %></p>
+        <p> Age : <%= @user.age %> </p>
+        <p> Email : <%= @user.email %> </p>
+        <p> Description : <%= @user.description %></p>
+        <p> Ville : <%= link_to "#{@user.city.name}", city_path(@user.city) %>
       </div>
     </div>
-    <% end %>
+    <div class="col-md-12 col-lg-8 px-3">
+      <div class="px-3">
+
+
+      <h2 class="my-4">Les Potins de <%= @user.first_name %></h2>
+      <div class="row justify-content-center text-left">
+        <% @user.gossips.each do |gossip| %>
+
+
+        <div class="card mx-3 mb-4 shadow-sm col-12">
+          <div class="card-body">
+            <div class="text-right">
+              <small class="text-muted"><%= gossip.updated_at.strftime("%d/%m/%Y")%></small>
+            </div>
+            <h5 class="card-title"><%=gossip.title%></h5>
+            <p class="card-text"><%= truncate(gossip.content, length: 50) %></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="">
+                <%= link_to "Voir", gossip_path(gossip.id), class: "btn btn-outline-secondary btn-sm" %>
+                <small class="text-muted">
+                  <%if gossip.comments.count > 1%>
+                  <%=gossip.comments.count%> commentaires
+                  <%elsif gossip.comments.count == 0%>
+                  Pas de commentaire
+                  <%else%>
+                  <%=gossip.comments.count%> commentaire
+                  <%end %>
+                </small>
+              </div>
+              <small class="text-muted">Ecrit par <%= link_to gossip.user.first_name, user_path(gossip.user.id) %></small>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+</div>
+    </div>
+
+    </div>
   </div>
-</div
