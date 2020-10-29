@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   root 'gossips#index'
 
   resources :gossips do
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :cities
+  resources :sessions, only: [:new, :create, :destroy]
 
   get '/contact', to: 'static_pages#contact'
   get '/team', to: 'static_pages#team'

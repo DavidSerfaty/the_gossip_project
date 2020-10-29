@@ -1,16 +1,9 @@
 class CommentsController < ApplicationController
-  # before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  #skip_before_action :verify_authenticity_token
-
-  # GET /comments
-  # GET /comments.json
-  # def index
-  #   @comments = Comment.all
-  # end
+  before_action :authenticate_user, only: [:create, :edit, :update, :destroy]
 
 
   def create
-    @comment = Comment.new('content' => params[:content], 'gossip_id' => params[:gossip_id],'user_id' => 21)
+    @comment = Comment.new('content' => params[:content], 'gossip_id' => params[:gossip_id],'user_id' => current_user.id)
     if @comment.save
       redirect_to gossip_path(@comment.gossip.id), notice: "Commentaire créé avec succès"
     else

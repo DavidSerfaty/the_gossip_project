@@ -1,4 +1,6 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:new, :show, :create, :edit, :update, :destroy]
+
   def index
     @gossips = Gossip.all
   end
@@ -12,7 +14,7 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip = Gossip.new('title' => params[:title], 'content' => params[:content], 'user_id' =>  12)
+    @gossip = Gossip.new('title' => params[:title], 'content' => params[:content], 'user_id' =>  current_user.id)
     if @gossip.save
       redirect_to gossip_path(@gossip.id), notice: "Gossip créé avec succès"
     else

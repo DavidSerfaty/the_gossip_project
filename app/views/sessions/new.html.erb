@@ -1,0 +1,11 @@
+<h1>Se Connecter</h1>
+<div class="col-6">
+  <%= form_tag url_for(action: 'create'), method: "post", class: "form-signin" do %>
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <%= label_tag 'Email' %>
+    <%= text_field_tag 'email', "", class: "form-control" %><br>
+    <%= label_tag 'Mot de passe' %>
+    <%= password_field_tag 'password',"", class: "form-control"%><br>
+    <%= submit_tag "Se Connecter",  class: "btn btn-lg btn-primary btn-block" %>
+  <% end %>
+</div>
