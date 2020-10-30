@@ -7,7 +7,10 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:email])
 
     if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
+      log_in(@user)
+      if params[:remember_token]
+        remember(@user)
+      end
       redirect_to root_path
     else
       flash.now[:danger] = 'Invalid email/password combination'
@@ -16,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
+    log_out(current_user)
     redirect_to new_session_path
   end
 end

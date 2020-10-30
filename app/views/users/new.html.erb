@@ -5,7 +5,11 @@
     <%= text_field_tag 'first_name', "", class: "form-control", placeholder: 'Prénom'  %>
     <%= select_tag "city_id", options_from_collection_for_select(City.all, "id", "name"), class:"form-control", required:"required"%>
     <%= text_field_tag 'email', "", class: "form-control", placeholder: 'Email' %>
-    <%= password_field_tag 'password',"", class: "form-control", placeholder: 'Mot de passe' %><br>
+    <%= password_field_tag 'password',"", class: "form-control", placeholder: 'Mot de passe' %>
+    <div class="custom-control custom-checkbox mb-3">
+      <input type="checkbox" name='remember_token'class="custom-control-input" id="customCheck1">
+      <label class="custom-control-label" for="customCheck1">Se souvenir de moi ?</label>
+    </div>
     <%= submit_tag "S'inscrire",  class: "btn btn-lg btn-primary btn-block" %>
     <% end %>
     <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
