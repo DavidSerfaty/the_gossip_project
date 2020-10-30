@@ -21,8 +21,20 @@
           Par <%= link_to "#{@gossip.user.first_name}", user_path(@gossip.user.id) %>
           à <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city) %>
         </p>
-        <div class="text-right">
 
+        <div class="text-left">
+          <% if current_user %>
+            <% if already_liked?(current_user, @gossip)%>
+              <small class="text-muted"><%= link_to "J'aime pas", gossip_like_path(@gossip.id, get_like(current_user, @gossip).id), method: :delete %></small>
+            <%else %>
+              <small class="text-muted"><%= link_to "J'aime", gossip_likes_path(@gossip.id), method: :post %></small>
+            <% end %>
+            <small class="text-muted"> <%= @gossip.like_count %></small>
+          <% else %>
+            <small class="text-muted"><%= @gossip.like_count %> Like</small>
+          <% end %>
+        </div>
+        <div class="text-right">
           <% if is_mine(@gossip, current_user) %>
             <%= link_to "Retourner aux Gossips", root_path, :class => "btn btn-link" %>
             <%= link_to "Modifier", edit_gossip_path, :class => "btn btn-outline-primary" %>

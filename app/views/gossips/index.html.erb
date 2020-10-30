@@ -22,12 +22,14 @@
               <div class="text-left">
                 <% if current_user %>
                   <% if already_liked?(current_user, gossip)%>
-                  <small class="text-muted"><%= link_to "J'aime pas", gossip_like_path(gossip.id, get_like(current_user, gossip).id), method: :delete %></small>
+                    <small class="text-muted"><%= link_to "J'aime pas", gossip_like_path(gossip.id, get_like(current_user, gossip).id), method: :delete %></small>
                   <%else %>
-                  <small class="text-muted"><%= link_to "J'aime", gossip_likes_path(gossip.id), method: :post %></small>
+                    <small class="text-muted"><%= link_to "J'aime", gossip_likes_path(gossip.id), method: :post %></small>
                   <% end %>
-                  <% end %>
-              <%= gossip.like_count %>
+                    <small class="text-muted"> <%= gossip.like_count %></small>
+                <% else %>
+                  <small class="text-muted"><%= gossip.like_count %>Like</small>
+                <% end %>
               </div>
               <div class="text-right">
                 <small class="text-muted">

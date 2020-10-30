@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new('first_name' => params[:first_name], 'email' => params[:email], 'password' => params[:password], 'city_id' => 11)
+    @user = User.new('first_name' => params[:first_name], email: params[:email], password: params[:password], city_id: params[:city_id])
     if @user.save
       session[:user_id] = @user.id
       redirect_to root_path, notice: "Bienvenu "
