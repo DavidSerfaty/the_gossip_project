@@ -1,9 +1,9 @@
 module SessionsHelper
 
 	def current_user
-	  if session[:user_id]
+	  if session[:user_id].present?
 	    current_user = User.find_by(id: session[:user_id])
-	  elsif cookies[:user_id]
+	  elsif cookies[:user_id].present?
 	    user = User.find_by(id: cookies[:user_id])
 	    if user && user.remember_digest.present? && BCrypt::Password.new(user.remember_digest).is_password?(cookies[:remember_token])
 	      log_in user

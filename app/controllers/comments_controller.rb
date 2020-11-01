@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    # comment_params = params.require(:comment).permit(:content, :gossip_id)
+    comment_params = params.require(:comment).permit(:content, :gossip_id)
     if @comment.update(content: params[:content], gossip_id: params[:gossip_id])
       redirect_to gossip_path(@comment.gossip.id), notice:"Ton commentaire a été mis à jour !"
     else
